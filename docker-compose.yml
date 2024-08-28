@@ -1,0 +1,30 @@
+services:
+
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+
+  web:
+    build: ./django
+    ports:
+      - "8081:8080"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      APP_TYPE: public
+
+  api:
+    build: ./django
+    ports:
+      - "8000:8080"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      APP_TYPE: public 
