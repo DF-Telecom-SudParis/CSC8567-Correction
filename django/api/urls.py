@@ -1,7 +1,7 @@
 from django.urls import path
 
-from . import views
+from api.views import liste_voitures_api
 
 urlpatterns = [
-    path("", views.index, name="index"),
+    path("voitures/", liste_voitures_api, name="liste_voitures_api"),
 ]

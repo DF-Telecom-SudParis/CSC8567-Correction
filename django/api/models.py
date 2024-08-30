@@ -10,11 +10,15 @@ class Cle(models.Model):
     date_rendu = models.DateField()
     def __str__(self):
         return self.proprietaire
+    class Meta:
+        app_label="api"
 
 class Garage(models.Model):
     nom = models.CharField(max_length=30)
     def __str__(self):
         return self.nom
+    class Meta:
+        app_label="api"
 
 class Voiture(models.Model):
     marque = models.CharField(max_length=30)
@@ -24,4 +28,6 @@ class Voiture(models.Model):
     modele = models.CharField(max_length=30)
     annee_fabrication = models.IntegerField()
     def __str__(self):
-        return self.marque+" "+self.immatriculation
+        return self.marque+" "+self.immatriculation+" "+self.cle+" "+self.garage+" "+self.annee_fabrication
+    class Meta:
+        app_label="api"
