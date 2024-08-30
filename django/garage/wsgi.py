@@ -11,6 +11,8 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'garage.settings')
+settings = "garage."+os.getenv("APP_TYPE")+"-settings"
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings)
 
 application = get_wsgi_application()

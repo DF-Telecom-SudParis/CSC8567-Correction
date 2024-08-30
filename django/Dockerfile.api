@@ -1,18 +1,17 @@
-# Use the official Python image
-FROM python:3.10-slim
+FROM python:latest
 
-# Set the working directory
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the project files
 COPY . .
 
-# Expose the port the API will run on
-EXPOSE 8000
+RUN chmod +x ./run-api.sh
 
-# Command to run the API app using gunicorn
-ENTRYPOINT ["bash","run.sh"]
+EXPOSE 8001
+
+CMD ["./run-api.sh"]
