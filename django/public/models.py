@@ -19,7 +19,7 @@ class Garage(models.Model):
         return self.nom
     class Meta:
         app_label="public"
-        
+
 class Voiture(models.Model):
     marque = models.CharField(max_length=30)
     cle = models.ForeignKey(Cle, on_delete=models.CASCADE)
