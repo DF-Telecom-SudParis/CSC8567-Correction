@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Liste des Garages{% endblock %}
+
+{% block content %}
+    <h2>Liste des Garages</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for garage in garages %}
+            <tr>
+                <td>{{ garage.nom }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

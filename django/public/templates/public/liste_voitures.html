@@ -1,14 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Voitures</title>
-</head>
-<body>
-    <h1>Liste des voitures</h1>
-    <ul>
-        {% for voiture in voitures %}
-            <li>{{ voiture }}</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Liste des Voitures{% endblock %}
+
+{% block content %}
+    <h2>Liste des Voitures</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Marque</th>
+                <th>Modèle</th>
+                <th>Immatriculation</th>
+                <th>Année de fabrication</th>
+                <th>Couleur de la clé</th>
+                <th>État de prêt</th>
+                <th>Date de prêt</th>
+                <th>Date de rendu</th>
+                <th>Garage</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for voiture in voitures %}
+            <tr>
+                <td>{{ voiture.marque }}</td>
+                <td>{{ voiture.modele }}</td>
+                <td>{{ voiture.immatriculation }}</td>
+                <td>{{ voiture.annee_fabrication }}</td>
+                <td>{{ voiture.cle.couleur }}</td>
+                <td>{% if voiture.cle.etat_pret %}Prêt{% else %}Non prêt{% endif %}</td>
+                <td>{{ voiture.cle.date_pret }}</td>
+                <td>{{ voiture.cle.date_rendu }}</td>
+                <td>{{ voiture.garage.nom }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

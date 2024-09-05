@@ -1,14 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Voitures</title>
-</head>
-<body>
-    <h1>Liste des voitures</h1>
-    <ul>
-        {% for voiture in voitures %}
-            <li>{{ voiture }}</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Liste des Clés{% endblock %}
+
+{% block content %}
+    <h2>Liste des Clés</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Propriétaire</th>
+                <th>Couleur</th>
+                <th>État de prêt</th>
+                <th>Date de prêt</th>
+                <th>Date de rendu</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cle in cles %}
+            <tr>
+                <td>{{ cle.proprietaire.username }}</td>
+                <td>{{ cle.couleur }}</td>
+                <td>{% if cle.etat_pret %}Prêt{% else %}Non prêt{% endif %}</td>
+                <td>{{ cle.date_pret }}</td>
+                <td>{{ cle.date_rendu }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
