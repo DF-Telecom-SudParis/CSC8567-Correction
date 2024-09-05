@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     'nginx',
     '127.0.0.1',
     'localhost',
+    'api',
 ]
 # Application definition
 
@@ -53,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'garage.urls'
+ROOT_URLCONF = 'garage.api-urls'
 
 TEMPLATES = [
     {
