@@ -46,6 +46,10 @@ Auteurs : Timothée Mathubert, Gatien Roujanski, Arthur Jovart
 - `/api/cles/` – Point de terminaison de l'API pour les clés.
 - `/api/garages/` – Point de terminaison de l'API pour les garages.
 
+### URLs fournis par Django :
+
+- `/admin/` – Interface d'administration Django.
+
 ## Questions
 
 ### Fonctionnement de Django
