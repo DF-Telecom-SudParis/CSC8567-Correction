@@ -114,6 +114,5 @@ environment:
 ### Schémas & Questions (8 pts)
 
 - Schéma de la base de données (1 pt)
-- Schéma de l'infrastructure précisant le fonctionnement de Docker (3.5 pts)
-- Liste des URLs fonctionnels (0.5 pt)
+- Schéma de l'infrastructure précisant le fonctionnement de la conteneurisation Docker (4 pts)
 - Réponses aux questions (3 pts)
