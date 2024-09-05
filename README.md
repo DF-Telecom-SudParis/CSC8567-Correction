@@ -45,3 +45,43 @@ Auteurs : Timothée Mathubert, Gatien Roujanski, Arthur Jovart
 - `/api/users/` – Point de terminaison de l'API pour les utilisateurs.
 - `/api/cles/` – Point de terminaison de l'API pour les clés.
 - `/api/garages/` – Point de terminaison de l'API pour les garages.
+
+## Questions
+
+### Fonctionnement de Django
+
+- Vous disposez d'un projet Django dans lequel une application `public` a été créée. Décrivez la suite de requêtes et d'exécutions permettant l'affichage d'une page HTML `index.html` à l'URL global `/` via une application `public`, ne nécessitant pas de contexte de données. Vous décrirez la position exacte dans l'arborescence des répertoires des différents fichiers utiles à cette exécution.
+- Dans quelle(s) section(s) de quel(s) fichier(s) peut-on configurer la base de données que l'on souhaite utiliser pour un projet Django ?
+- Dans quel(s) fichier(s) peut-on configurer le fichier de paramètres que l'on souhaite utiliser pour le projet Django ? S'il y a plusieurs fichers, expliquez le rôle de chaque fichier dans le projet.
+- Nous nous plaçons à la racine de votre projet Django. Quel effet a l'exécution `python manage.py makemigrations` ? Et l'exécution `python manage.py migrate` ? Quel(s) fichier(s) sont mis en oeuvre pendant ces exécutions ?
+
+### Fonctionnement de Docker
+
+- Expliquez l'effet de ces commandes, communément vues dans des fichiers `Dockerfile` : `FROM`, `RUN`, `WORKDIR`, `EXPOSE`, `CMD`, `ENTRYPOINT`.
+- Dans la définition d'un service dans le fichier `docker-compose.yml`, expliquez l'effet des mentions :
+1.
+```
+ports:
+    - "80:80"
+```
+2.
+```
+build: 
+    context: .
+    dockerfile: Dockerfile.api
+```
+3.
+```
+depends_on:
+    - web
+    - api
+```
+4.
+```
+environment:
+    POSTGRES_DB: ${POSTGRES_DB}
+    POSTGRES_USER: ${POSTGRES_USER}
+    POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+```
+- Citez une méthode pour définir des variables d'environnement dans un conteneur.
+- Dans un même réseau Docker, nous disposons d'un conteneur `nginx` (utilisant l'image `nginx:latest`) et d'un conteneur `web` (utilisant une image contenant un projet web Django, ayant la commande `python manage.py runserver 0.0.0.0:8000` de lancée au démarrage du conteneur). Comment adresser le conteneur `web` depuis le conteneur `nginx` ?

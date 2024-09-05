@@ -11,6 +11,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 RUN chmod +x ./run-api.sh
 
-EXPOSE 8001
-
 CMD ["./run-api.sh"]
