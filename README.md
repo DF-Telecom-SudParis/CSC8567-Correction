@@ -88,3 +88,32 @@ environment:
 ```
 - Citez une méthode pour définir des variables d'environnement dans un conteneur.
 - Dans un même réseau Docker, nous disposons d'un conteneur `nginx` (utilisant l'image `nginx:latest`) et d'un conteneur `web` (utilisant une image contenant un projet web Django, ayant la commande `python manage.py runserver 0.0.0.0:8000` de lancée au démarrage du conteneur). Comment adresser le conteneur `web` depuis le conteneur `nginx` ?
+
+## Notation du CC (NON FIXE, 20 pts)
+
+### Application web Django (6 pts+)
+
+#### Frontend (app `public`) (4 pts+)
+
+- Une page par table pour afficher l'ensemble des données (toutes les entrées, toutes les colonnes, toutes les tables) (2 pt)
+- Une page d'accueil pour naviguer sur les différentes listes (1 pt)
+- La page d'administration est disponible à l'URL /admin (1 pt)
+- Fonctionnalités supplémentaires (création d'objets, utilisateurs/connexion, pages pour avoir les détails d'un objet dans la liste) (+1 pt/fonctionnalité)
+
+#### API (app `api`) (2 pts+)
+
+- Une page par table pour récupérer au format JSON l'ensemble des données de la table (2 pts)
+- Fonctionnalités supplémentaires (pages pour avoir les détails d'un objet) (+1 pt)
+
+### Conteneurisation avec Docker (6 pts)
+
+- La configuration du proxy est correcte (écoute sur `localhost:80`, répartition du trafic selon l'URL) (1 pt)
+- La séparation entre les applications `public` et `api` dans leurs deux conteneurs respectifs est correcte (settings.py séparés, urls.py séparés, chargement correct des settings dans manage.py et wsgi.py, construction des images avec un Dockerfile correct) (3 pts)
+- La base de données (conteneur `db`) est correctement utilisée (DATABASES correctement configuré dans settings.py, des migrations et des chargements de fixtures sont effectués au lancement de l'un des conteneurs `public` ou `api`, chaque conteneur peut accéder aux données) (2 pts)
+
+### Schémas & Questions (8 pts)
+
+- Schéma de la base de données (1 pt)
+- Schéma de l'infrastructure précisant le fonctionnement de Docker (3.5 pts)
+- Liste des URLs fonctionnels (0.5 pt)
+- Réponses aux questions (3 pts)
