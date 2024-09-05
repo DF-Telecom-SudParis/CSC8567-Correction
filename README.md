@@ -22,7 +22,7 @@ Auteurs : Timothée Mathubert, Gatien Roujanski, Arthur Jovart
 ## Schéma de l'infrastructure
 
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/877dfc8f-ae0b-41e0-a934-19480d839d0c" alt="Infra à reproduire">
+    <img src="https://github.com/user-attachments/assets/1c686e37-814e-4dc6-a249-2d73d9ae7b37" alt="Infra">
 </p>
 
 ## Arbre des pages selon leur URL
