@@ -9,7 +9,7 @@ class Cle(models.Model):
     def __str__(self):
         return self.proprietaire
     class Meta:
-        app_label="public"      
+        app_label="public"
 class Garage(models.Model):
     nom = models.CharField(max_length=30)
     def __str__(self):
