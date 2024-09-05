@@ -1,9 +1,6 @@
 from django.shortcuts import render
 from public.models import *
 
-def home(request):
-    return render(request, 'home.html')
-
 def liste_voiture_view(request):
     voitures = Voiture.objects.all()
     return render(request, 'public/liste_voitures.html', {'voitures': voitures})
