@@ -1,2 +1,2 @@
 #!/bin/sh
-gunicorn garage.wsgi:application --bind 0.0.0.0:8001
+python manage.py runserver 0.0.0.0:8000

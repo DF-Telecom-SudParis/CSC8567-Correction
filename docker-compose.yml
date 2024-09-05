@@ -47,7 +47,6 @@ services:
       - front
       - back
 
-
   nginx:
     image: nginx:latest
     volumes:
@@ -64,4 +63,4 @@ networks:
   front:
     driver: bridge
   back:
-    driver: bridge    
+    driver: bridge
