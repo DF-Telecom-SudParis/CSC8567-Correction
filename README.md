@@ -108,24 +108,21 @@ L'exécution est ainsi complétée.
 ports:
     - "80:80"
 ```
-Réponse :
-    - Ceci mappe le port 80 du conteneur au port 80 de l’hôte via une règle NAT, ce qui rend le service accessible depuis l'extérieur du conteneur.
+- Ceci mappe le port 80 du conteneur au port 80 de l’hôte via une règle NAT, ce qui rend le service accessible depuis l'extérieur du conteneur.
 2.
 ```
 build: 
     context: .
     dockerfile: Dockerfile.api
 ```
-Réponse :
-    - Ceci permet de préciser le Dockerfile utilisé pour la création du conteneur.
+- Ceci permet de préciser le Dockerfile utilisé pour la création du conteneur.
 3.
 ```
 depends_on:
     - web
     - api
 ```
-Réponse :
-    - Ceci permet d'indiquer que le service concerné ne doit pas démarrer avant que les conteneurs `web` et `api` aient démarré. Mais attention, ceci ne garantit pas que les services dépendants au sein des conteneurs seront totalement prêts. Un service pourrait démarrer avant que les autres soient pleinement disponibles. Pour garantir que le service est prêt, il faut utiliser des mécanismes comme des "healthchecks".
+- Ceci permet d'indiquer que le service concerné ne doit pas démarrer avant que les conteneurs `web` et `api` aient démarré. Mais attention, ceci ne garantit pas que les services dépendants au sein des conteneurs seront totalement prêts. Un service pourrait démarrer avant que les autres soient pleinement disponibles. Pour garantir que le service est prêt, il faut utiliser des mécanismes comme des "healthchecks".
 4.
 ```
 environment:
@@ -133,8 +130,7 @@ environment:
     POSTGRES_USER: ${POSTGRES_USER}
     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 ```
-Réponse :
-    - Ceci permet de définir des variables d'environnement dans un conteneur, à partir des variables d'environnement `POSTGRES_DB`, `POSTGRES_USER` et `POSTGRES_PASSWORD` définies dans le ficher `.env` du répertoire courant.
+- Ceci permet de définir des variables d'environnement dans un conteneur, à partir des variables d'environnement `POSTGRES_DB`, `POSTGRES_USER` et `POSTGRES_PASSWORD` définies dans le ficher `.env` du répertoire courant.
 - Citez une méthode pour définir des variables d'environnement dans un conteneur.
     - La réponse au quatrième point de la question précédente propose une méthode. Ces variables peuvent également être passées dans le conteneur directement dans un Dockerfile avec l'instruction `ENV`. Une autre possibilité, peu applicable à ce cours, serait de préciser ces variables directement à l'exécution de `docker run -e DATABASE_USER=myuser -e DATABASE_PASSWORD=mypassword mycontainer`. Comme nous utilisons un fichier `docker-compose.yml`, nous ne créons pas de conteneurs via la commande `docker run`. Il peut être utile tout de même de savoir que cette possibilité existe.
 - Dans un même réseau Docker, nous disposons d'un conteneur `nginx` (utilisant l'image `nginx:latest`) et d'un conteneur `web` (utilisant une image contenant un projet web Django, ayant la commande `python manage.py runserver 0.0.0.0:8000` de lancée au démarrage du conteneur). Comment adresser le serveur web tournant dans le conteneur `web` depuis le conteneur `nginx`, sans utiliser les adresses IP des conteneurs ?
