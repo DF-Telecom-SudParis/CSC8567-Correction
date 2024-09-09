@@ -60,7 +60,7 @@ Format :
 
 - Vous disposez d'un projet Django dans lequel une application `public` a été créée. Décrivez la suite de requêtes et d'exécutions permettant l'affichage d'une page HTML `index.html` à l'URL global `/` via une application `public`, ne nécessitant pas de contexte de données. Vous décrirez la position exacte dans l'arborescence des répertoires des différents fichiers utiles à cette exécution.
 
-    - On place le fichier `index.html` dans l'arboresence suivante, en partant de la racine du projet : `public/templates/public/index.html`. Tout d'abord, on définit une fonction `index` dans le ficher `views.py` du répertoire `public` telle que :
+    - On place le fichier `index.html` dans l'arboresence suivante, en partant de la racine du projet : `public/templates/public/index.html`. Ensuite, on définit une fonction `index` dans le ficher `views.py` du répertoire `public` telle que :
 ```py
 from django.shortcuts import render
 
@@ -76,7 +76,7 @@ urlpatterns = [
     path('',index,name='index'),
 ]
 ```
-Et dans le fichier `urls.py` du projet principal:
+Et dans le fichier `urls.py` principal :
 
 ```py
 from django.urls import path, include
@@ -88,11 +88,11 @@ urlpatterns = [
 A la réception de la requête au chemin `/` sur l'interface où écoute le serveur web, l'application Django va examiner le fichier `urls.py` principal et reconnaître l'URL indiqué, puis va exécuter la fonction `index`, qui a été programmée pour retourner le contenu du fichier `index.html`. 
 L'exécution est ainsi complétée.
 - Dans quelle(s) section(s) de quel(s) fichier(s) peut-on configurer la base de données que l'on souhaite utiliser pour un projet Django ?
-    - On peut configurer la base de données que l'on souhaite utiliser pour un projet Django dans le champ `DATABASES` dans le fichier `settings.py` du répertoire principal (si l'on conserve les paramètres par défaut du projet). 
-- Dans quel(s) fichier(s) peut-on configurer le fichier de paramètres que l'on souhaite utiliser pour le projet Django ? S'il y a plusieurs fichers, expliquez le rôle de chaque fichier dans le projet.
+    - On peut configurer la base de données que l'on souhaite utiliser pour un projet Django dans le champ `DATABASES` du fichier cible de la variable d'environnement `DJANGO_SETTINGS_MODULE` du projet Django.
+- Dans quel(s) fichier(s) peut-on configurer le fichier de paramètres que l'on souhaite faire utiliser par le projet Django ? Si plusieurs fichers sont à mentionner, expliquez le rôle de chaque fichier.
     - Les fichiers `manage.py` et `wsgi.py` permettent d'utiliser des fichiers de paramètres différents, via la définition dans ces fichiers de la variable d'environnement `DJANGO_SETTINGS_MODULE`. `manage.py` utilise des paramètres différents pour l'exécution des commandes (migrate, makemigrations, runserver, ...) et `wsgi.py` les utilise pour gérer les requêtes faites au serveur web.
 - Nous nous plaçons à la racine de votre projet Django. Quel effet a l'exécution `python manage.py makemigrations` ? Et l'exécution `python manage.py migrate` ? Quel(s) fichier(s) sont mis en oeuvre pendant ces exécutions ?
-    - La première exécution va, à partir des fichiers `models.py` des applications sélectionnées dans le champ`INSTALLED_APPS` du fichier de paramètres sélectionné pour le projet, créer des fichiers Python récapitulant les changements à appliquer dans la base de données. La seconde exécution, à partir de ces fichiers précedemment générés, va les traduire en requêtes SQL, qui seront envoyées à la base de données et exécutées.
+    - La première exécution va, à partir des fichiers `models.py` des applications sélectionnées dans le champ`INSTALLED_APPS` du fichier de paramètres sélectionné pour le projet, créer des fichiers Python récapitulant les changements à appliquer dans la base de données. La seconde exécution, à partir de ces fichiers précedemment générés, va les traduire en requêtes SQL, qui seront envoyées à la base de données et exécutées. Il est possible de préciser, pour chacune de ces commandes, les applications auquelles on souhaite appliquer d'éventuels changements.
 
 ### Fonctionnement de Docker
 
@@ -115,7 +115,7 @@ build:
     context: .
     dockerfile: Dockerfile.api
 ```
-- Ceci permet de préciser le Dockerfile utilisé pour la création du conteneur.
+- Ceci permet de préciser le `Dockerfile` utilisé pour la création du conteneur.
 3.
 ```
 depends_on:
