@@ -95,21 +95,22 @@ L'exécution est ainsi complétée.
 ports:
     - "80:80"
 ```
-    - Ceci a le même effet que la mention `EXPOSE 80` dans un Dockerfile.
+
+- Ceci a le même effet que la mention `EXPOSE 80` dans un Dockerfile.
 2.
 ```
 build: 
     context: .
     dockerfile: Dockerfile.api
 ```
-    - Ceci permet de préciser le Dockerfile utilisé pour la création du conteneur
+- Ceci permet de préciser le Dockerfile utilisé pour la création du conteneur
 3.
 ```
 depends_on:
     - web
     - api
 ```
-    - Ceci permet d'indiquer que le service concerné ne doit pas démarrer avant que les conteneurs `web` et `api` aient démarré. C'est, dans le cadre de ce cours, le cas du conteneur jouant le rôle de `proxy`.
+- Ceci permet d'indiquer que le service concerné ne doit pas démarrer avant que les conteneurs `web` et `api` aient démarré. C'est, dans le cadre de ce cours, le cas du conteneur jouant le rôle de `proxy`.
 4.
 ```
 environment:
@@ -117,7 +118,7 @@ environment:
     POSTGRES_USER: ${POSTGRES_USER}
     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 ```
-    - Ceci permet de définir des variables d'environnement dans un conteneur.
+- Ceci permet de définir des variables d'environnement dans un conteneur.
 - Citez une méthode pour définir des variables d'environnement dans un conteneur.
     - La réponse au quatrième point de la question précédente propose une méthode.
 - Dans un même réseau Docker, nous disposons d'un conteneur `nginx` (utilisant l'image `nginx:latest`) et d'un conteneur `web` (utilisant une image contenant un projet web Django, ayant la commande `python manage.py runserver 0.0.0.0:8000` de lancée au démarrage du conteneur). Comment adresser le serveur web tournant dans le conteneur `web` depuis le conteneur `nginx`, sans utiliser les adresses IP des conteneurs ?
