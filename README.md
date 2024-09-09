@@ -154,7 +154,7 @@ environment:
 
 ### Conteneurisation avec Docker **(6 pts)**
 
-- La configuration du proxy est correcte (écoute sur `localhost:80`, répartition du trafic selon l'URL) **(1 pt)**
+- La configuration du proxy est correcte (port mappé sur `localhost:80`, répartition du trafic selon l'URL) **(1 pt)**
 - La séparation entre les applications `public` et `api` dans leurs deux conteneurs respectifs est correcte (`settings.py` séparés, `urls.py` séparés, chargement correct des modules `settings` dans `manage.py` et `wsgi.py`, construction des images avec des `Dockerfile` corrects) **(3 pts)**
 - La base de données (conteneur `db`) est correctement utilisée (`DATABASES` correctement configuré dans `settings.py`, des migrations et des chargements de fixtures sont effectués au lancement de l'un des conteneurs `public` ou `api`, chaque conteneur peut accéder aux données) **(2 pts)**
 
