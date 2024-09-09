@@ -92,7 +92,7 @@ L'exécution est ainsi complétée.
 ### Fonctionnement de Docker
 
 - Expliquez l'effet et la syntaxe de ces commandes, communément vues dans des fichiers `Dockerfile` : `FROM`, `RUN`, `WORKDIR`, `EXPOSE`, `CMD`.
-    - `FROM image` permet d'indiquer quelle image de conteneur de base on va utiliser.
+    - `FROM image` permet d'indiquer quelle image de conteneur de base on va utiliser. Cette image doit être disponible sur [Docker Hub](https://hub.docker.com).
     - `RUN commande à exécuter` permet d'exécuter une commande shell au sein du conteneur pendant la phase de construction de l'image.
     - `WORKDIR /répertoire` crée un dossier `répertoire` dans le conteneur et le définit comme le répertoire courant pendant la phase de construction de l'image.
     - `EXPOSE port` permet de documenter les ports sur lesquels le conteneur souhaite communiquer avec l’extérieur.
