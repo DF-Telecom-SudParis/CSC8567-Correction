@@ -93,10 +93,10 @@ L'exécution est ainsi complétée.
 
 - Expliquez l'effet et la syntaxe de ces commandes, communément vues dans des fichiers `Dockerfile` : `FROM`, `RUN`, `WORKDIR`, `EXPOSE`, `CMD`.
     - `FROM image` permet d'indiquer quelle image de conteneur de base on va utiliser.
-    - `RUN ["commande","à","exécuter"]` permet d'exécuter une commande au sein du conteneur pendant la phase de construction de l'image.
+    - `RUN commande à exécuter` permet d'exécuter une commande shell au sein du conteneur pendant la phase de construction de l'image.
     - `WORKDIR /répertoire` crée un dossier `répertoire` dans le conteneur et le définit comme le répertoire courant pendant la phase de construction de l'image.
-    - `EXPOSE port` permet de créer une règle de NAT, qui va traduire `127.0.0.1:port` en `ip-conteneur:port`. Cela rend ainsi le port accessible depuis l'interface de loopback.
-    - `CMD ["commande","à","exécuter"]` permet d'exécuter une commande au sein du conteneur à la fin de la phase de construction.
+    - `EXPOSE port` permet de documenter les ports sur lesquels le conteneur souhaite communiquer avec l’extérieur.
+    - `CMD ["commande","à","exécuter"]` permet d'exécuter une commande au sein du conteneur à la fin de la phase de construction, au moment du démarrage du conteneur.
 - Dans la définition d'un service dans le fichier `docker-compose.yml`, expliquez l'effet des mentions :
 1.
 ```
@@ -104,21 +104,21 @@ ports:
     - "80:80"
 ```
 
-- Ceci a le même effet que la mention `EXPOSE 80` dans un Dockerfile.
+- Ceci mappe le port 80 du conteneur au port 80 de l’hôte via une règle NAT, ce qui rend le service accessible depuis l'extérieur du conteneur.
 2.
 ```
 build: 
     context: .
     dockerfile: Dockerfile.api
 ```
-- Ceci permet de préciser le Dockerfile utilisé pour la création du conteneur
+- Ceci permet de préciser le Dockerfile utilisé pour la création du conteneur.
 3.
 ```
 depends_on:
     - web
     - api
 ```
-- Ceci permet d'indiquer que le service concerné ne doit pas démarrer avant que les conteneurs `web` et `api` aient démarré. C'est, dans le cadre de ce cours, le cas du conteneur jouant le rôle de `proxy`.
+- Ceci permet d'indiquer que le service concerné ne doit pas démarrer avant que les conteneurs `web` et `api` aient démarré. Mais attention, ceci ne garantit pas que les services dépendants au sein des conteneurs seront totalement prêts. Un service pourrait démarrer avant que les autres soient pleinement disponibles. Pour garantir que le service est prêt, il faut utiliser des mécanismes comme des "healthchecks".
 4.
 ```
 environment:
@@ -128,7 +128,7 @@ environment:
 ```
 - Ceci permet de définir des variables d'environnement dans un conteneur.
 - Citez une méthode pour définir des variables d'environnement dans un conteneur.
-    - La réponse au quatrième point de la question précédente propose une méthode.
+    - La réponse au quatrième point de la question précédente propose une méthode. Il est également possible de définir des variables d'environnement dans un fichier `.env`. Si ce dernier contient par exemple une variable `DATABASE_USER`, cette variable sera accessible via `${DATABASE_USER}`. Ou encore, ces variables peuvent être passées dans le conteneur directement dans un Dockerfile avec l'instruction `ENV`. 
 - Dans un même réseau Docker, nous disposons d'un conteneur `nginx` (utilisant l'image `nginx:latest`) et d'un conteneur `web` (utilisant une image contenant un projet web Django, ayant la commande `python manage.py runserver 0.0.0.0:8000` de lancée au démarrage du conteneur). Comment adresser le serveur web tournant dans le conteneur `web` depuis le conteneur `nginx`, sans utiliser les adresses IP des conteneurs ?
     - Docker offre un serveur DNS, qui ajoute des entrées DNS par défaut qui sont le nom des conteneurs. Ce serveur DNS est accessible par tous les conteneurs. Ainsi, on peut adresser le serveur web du conteneur `web` directement via `web:8000` depuis le conteneur `nginx`.
 
