@@ -77,7 +77,7 @@ Et dans le fichier `urls.py` du projet principal:
 from django.urls import path, include
 
 urlpatterns = [
-    path('',include('public.urls'),
+    path('',include('public.urls')),
 ]
 ```
 A la réception de la requête au chemin `/` sur l'interface où écoute le serveur web, l'application Django va examiner le fichier `urls.py` principal et reconnaître l'URL indiqué, puis va exécuter la fonction `index`, qui a été programmée pour retourner le contenu du fichier `index.html`. 
