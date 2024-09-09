@@ -92,16 +92,16 @@ L'exécution est ainsi complétée.
 - Dans quel(s) fichier(s) peut-on configurer le fichier de paramètres que l'on souhaite faire utiliser par le projet Django ? Si plusieurs fichers sont à mentionner, expliquez le rôle de chaque fichier.
     - Les fichiers `manage.py` et `wsgi.py` permettent d'utiliser des fichiers de paramètres différents, via la définition dans ces fichiers de la variable d'environnement `DJANGO_SETTINGS_MODULE`. `manage.py` utilise des paramètres différents pour l'exécution des commandes (`migrate`, `makemigrations`, `runserver` notamment) et `wsgi.py` les utilise pour gérer les requêtes faites au serveur web.
 - Nous nous plaçons à la racine de votre projet Django. Quel effet a l'exécution `python manage.py makemigrations` ? Et l'exécution `python manage.py migrate` ? Quel(s) fichier(s) sont mis en oeuvre pendant ces exécutions ?
-    - python manage.py makemigrations : Cette commande crée des fichiers de migration à partir des changements effectués dans les fichiers models.py des applications listées dans INSTALLED_APPS du fichier de paramètres (settings.py). Ces fichiers de migration sont stockés dans un répertoire migrations propre à chaque application et récapitulent les modifications à appliquer à la base de données.
+    - `python manage.py makemigrations` : Cette commande crée des fichiers de migration à partir des changements effectués dans les fichiers models.py des applications listées dans `INSTALLED_APPS` du fichier de paramètres (`settings.py`). Ces fichiers de migration sont stockés dans un répertoire migrations propre à chaque application et récapitulent les modifications à appliquer à la base de données.
 
-    - python manage.py migrate : Cette commande applique les migrations en les traduisant en requêtes SQL qui sont ensuite exécutées sur la base de données. Les fichiers de migration créés précédemment sont utilisés pour cette opération. Les migrations sont appliquées dans l'ordre dans lequel elles ont été créées pour assurer la cohérence de la base de données.
+    - `python manage.py migrate` : Cette commande applique les migrations en les traduisant en requêtes SQL qui sont ensuite exécutées sur la base de données. Les fichiers de migration créés précédemment sont utilisés pour cette opération. Les migrations sont appliquées dans l'ordre dans lequel elles ont été créées pour assurer la cohérence de la base de données.
 
     - Fichiers impliqués :
 
-        - models.py : Contient les définitions des modèles (tables de la base de données).
-        - migrations/ : Répertoire généré automatiquement pour chaque application, contenant les fichiers de migration.
-        - settings.py : Spécifie les paramètres de la base de données et les applications installées.
-        - manage.py : Permet d'exécuter les commandes de gestion Django, y compris makemigrations et migrate.
+        - `models.py` : Contient les définitions des modèles (tables de la base de données).
+        - `migrations/` : Répertoire généré automatiquement pour chaque application, contenant les fichiers de migration.
+        - `settings.py` : Spécifie les paramètres de la base de données et les applications installées.
+        - `manage.py` : Permet d'exécuter les commandes de gestion Django, y compris `makemigrations` et `migrate`.
 
 
 ### Fonctionnement de Docker
