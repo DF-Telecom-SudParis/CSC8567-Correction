@@ -90,9 +90,19 @@ L'exécution est ainsi complétée.
 - Dans quelle(s) section(s) de quel(s) fichier(s) peut-on configurer la base de données que l'on souhaite utiliser pour un projet Django ?
     - On peut configurer la base de données que l'on souhaite utiliser pour un projet Django dans le champ `DATABASES` du fichier cible de la variable d'environnement `DJANGO_SETTINGS_MODULE` du projet Django.
 - Dans quel(s) fichier(s) peut-on configurer le fichier de paramètres que l'on souhaite faire utiliser par le projet Django ? Si plusieurs fichers sont à mentionner, expliquez le rôle de chaque fichier.
-    - Les fichiers `manage.py` et `wsgi.py` permettent d'utiliser des fichiers de paramètres différents, via la définition dans ces fichiers de la variable d'environnement `DJANGO_SETTINGS_MODULE`. `manage.py` utilise des paramètres différents pour l'exécution des commandes (migrate, makemigrations, runserver, ...) et `wsgi.py` les utilise pour gérer les requêtes faites au serveur web.
+    - Les fichiers `manage.py` et `wsgi.py` permettent d'utiliser des fichiers de paramètres différents, via la définition dans ces fichiers de la variable d'environnement `DJANGO_SETTINGS_MODULE`. `manage.py` utilise des paramètres différents pour l'exécution des commandes (`migrate`, `makemigrations`, `runserver` notamment) et `wsgi.py` les utilise pour gérer les requêtes faites au serveur web.
 - Nous nous plaçons à la racine de votre projet Django. Quel effet a l'exécution `python manage.py makemigrations` ? Et l'exécution `python manage.py migrate` ? Quel(s) fichier(s) sont mis en oeuvre pendant ces exécutions ?
-    - La première exécution va, à partir des fichiers `models.py` des applications sélectionnées dans le champ`INSTALLED_APPS` du fichier de paramètres sélectionné pour le projet, créer des fichiers Python récapitulant les changements à appliquer dans la base de données. La seconde exécution, à partir de ces fichiers précedemment générés, va les traduire en requêtes SQL, qui seront envoyées à la base de données et exécutées. Il est possible de préciser, pour chacune de ces commandes, les applications auquelles on souhaite appliquer d'éventuels changements.
+    - python manage.py makemigrations : Cette commande crée des fichiers de migration à partir des changements effectués dans les fichiers models.py des applications listées dans INSTALLED_APPS du fichier de paramètres (settings.py). Ces fichiers de migration sont stockés dans un répertoire migrations propre à chaque application et récapitulent les modifications à appliquer à la base de données.
+
+    - python manage.py migrate : Cette commande applique les migrations en les traduisant en requêtes SQL qui sont ensuite exécutées sur la base de données. Les fichiers de migration créés précédemment sont utilisés pour cette opération. Les migrations sont appliquées dans l'ordre dans lequel elles ont été créées pour assurer la cohérence de la base de données.
+
+    - Fichiers impliqués :
+
+        - models.py : Contient les définitions des modèles (tables de la base de données).
+        - migrations/ : Répertoire généré automatiquement pour chaque application, contenant les fichiers de migration.
+        - settings.py : Spécifie les paramètres de la base de données et les applications installées.
+        - manage.py : Permet d'exécuter les commandes de gestion Django, y compris makemigrations et migrate.
+
 
 ### Fonctionnement de Docker
 
@@ -108,21 +118,21 @@ L'exécution est ainsi complétée.
 ports:
     - "80:80"
 ```
-- Ceci mappe le port 80 du conteneur au port 80 de l’hôte via une règle NAT, ce qui rend le service accessible depuis l'extérieur du conteneur.
+- Cela établit une correspondace entre le port 80 du conteneur et le port 80 de l’hôte via une règle NAT, ce qui rend le service accessible depuis l'extérieur du conteneur.
 2.
 ```
 build: 
     context: .
     dockerfile: Dockerfile.api
 ```
-- Ceci permet de préciser le `Dockerfile` utilisé pour la création du conteneur.
+- Ceci permet de spécifier le `Dockerfile` à utiliser pour la création du conteneur.
 3.
 ```
 depends_on:
     - web
     - api
 ```
-- Ceci permet d'indiquer que le service concerné ne doit pas démarrer avant que les conteneurs `web` et `api` aient démarré. Mais attention, ceci ne garantit pas que les services dépendants au sein des conteneurs seront totalement prêts. Un service pourrait démarrer avant que les autres soient pleinement disponibles. Pour garantir que le service est prêt, il faut utiliser des mécanismes comme des "healthchecks".
+- Cela signifie que le service ne démarrera qu'après que les conteneurs `web` et `api` ont démarré. Cependant, cela ne garantit pas que ces services seront entièrement prêts. Il est recommandé d'utiliser des "healthchecks" pour s'en assurer.
 4.
 ```
 environment:
@@ -130,7 +140,7 @@ environment:
     POSTGRES_USER: ${POSTGRES_USER}
     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 ```
-- Ceci permet de définir des variables d'environnement dans un conteneur, à partir des variables d'environnement `POSTGRES_DB`, `POSTGRES_USER` et `POSTGRES_PASSWORD` définies dans le ficher `.env` du répertoire courant.
+- Cela définit des variables d'environnement dans le conteneur à partir du fichier `.env` dans le répertoire courant.
 - Citez une méthode pour définir des variables d'environnement dans un conteneur.
     - La réponse au quatrième point de la question précédente propose une méthode. Ces variables peuvent également être passées dans le conteneur directement dans un Dockerfile avec l'instruction `ENV`. Une autre possibilité, peu applicable à ce cours, serait de préciser ces variables directement à l'exécution de `docker run -e DATABASE_USER=myuser -e DATABASE_PASSWORD=mypassword mycontainer`. Comme nous utilisons un fichier `docker-compose.yml`, nous ne créons pas de conteneurs via la commande `docker run`. Il peut être utile tout de même de savoir que cette possibilité existe.
 - Dans un même réseau Docker, nous disposons d'un conteneur `nginx` (utilisant l'image `nginx:latest`) et d'un conteneur `web` (utilisant une image contenant un projet web Django, ayant la commande `python manage.py runserver 0.0.0.0:8000` de lancée au démarrage du conteneur). Comment adresser le serveur web tournant dans le conteneur `web` depuis le conteneur `nginx`, sans utiliser les adresses IP des conteneurs ?
@@ -154,7 +164,7 @@ environment:
 
 ### Conteneurisation avec Docker **(6 pts)**
 
-- La configuration du proxy est correcte (port mappé sur `localhost:80`, répartition du trafic selon l'URL) **(1 pt)**
+- La configuration du proxy est correcte (correspondance sur `localhost:80`, répartition du trafic selon l'URL) **(1 pt)**
 - La séparation entre les applications `public` et `api` dans leurs deux conteneurs respectifs est correcte (`settings.py` séparés, `urls.py` séparés, chargement correct des modules `settings` dans `manage.py` et `wsgi.py`, construction des images avec des `Dockerfile` corrects) **(3 pts)**
 - La base de données (conteneur `db`) est correctement utilisée (`DATABASES` correctement configuré dans `settings.py`, des migrations et des chargements de fixtures sont effectués au lancement de l'un des conteneurs `public` ou `api`, chaque conteneur peut accéder aux données) **(2 pts)**
 
