@@ -62,14 +62,22 @@ from django.shortcuts import render
 def index(request):
     return render(request,'public/index.html')
 ```
-Et dans le fichier `urls.py` du projet principal:
-
+Dans le fichier `urls.py` de l'application `public` :
 ```py
 from django.urls import path
 from public.views import index
 
 urlpatterns = [
     path('',index,name='index'),
+]
+```
+Et dans le fichier `urls.py` du projet principal:
+
+```py
+from django.urls import path, include
+
+urlpatterns = [
+    path('',include('public.urls'),
 ]
 ```
 A la réception de la requête au chemin `/` sur l'interface où écoute le serveur web, l'application Django va examiner le fichier `urls.py` principal et reconnaître l'URL indiqué, puis va exécuter la fonction `index`, qui a été programmée pour retourner le contenu du fichier `index.html`. 
