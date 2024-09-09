@@ -83,25 +83,33 @@ L'exécution est ainsi complétée.
 
 ### Fonctionnement de Docker
 
-- Expliquez l'effet et la syntaxe de ces commandes, communément vues dans des fichiers `Dockerfile` : `FROM`, `RUN`, `WORKDIR`, `EXPOSE`, `CMD`, `ENTRYPOINT`.
+- Expliquez l'effet et la syntaxe de ces commandes, communément vues dans des fichiers `Dockerfile` : `FROM`, `RUN`, `WORKDIR`, `EXPOSE`, `CMD`.
+    - `FROM image` permet d'indiquer quelle image de conteneur de base on va utiliser.
+    - `RUN ["commande","à","exécuter"]` permet d'exécuter une commande au sein du conteneur pendant la phase de construction de l'image.
+    - `WORKDIR /répertoire` crée un dossier `répertoire` dans le conteneur et le définit comme le répertoire courant pendant la phase de construction de l'image.
+    - `EXPOSE port` permet de créer une règle de NAT, qui va traduire `127.0.0.1:port` en `ip-conteneur:port`. Cela rend ainsi le port accessible depuis l'interface de loopback.
+    - `CMD ["commande","à","exécuter"]` permet d'exécuter une commande au sein du conteneur à la fin de la phase de construction.
 - Dans la définition d'un service dans le fichier `docker-compose.yml`, expliquez l'effet des mentions :
 1.
 ```
 ports:
     - "80:80"
 ```
+    - Ceci a le même effet que la mention `EXPOSE 80` dans un Dockerfile.
 2.
 ```
 build: 
     context: .
     dockerfile: Dockerfile.api
 ```
+    - Ceci permet de préciser le Dockerfile utilisé pour la création du conteneur
 3.
 ```
 depends_on:
     - web
     - api
 ```
+    - Ceci permet d'indiquer que le service concerné ne doit pas démarrer avant que les conteneurs `web` et `api` aient démarré. C'est, dans le cadre de ce cours, le cas du conteneur jouant le rôle de `proxy`.
 4.
 ```
 environment:
@@ -109,8 +117,11 @@ environment:
     POSTGRES_USER: ${POSTGRES_USER}
     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 ```
+    - Ceci permet de définir des variables d'environnement dans un conteneur.
 - Citez une méthode pour définir des variables d'environnement dans un conteneur.
-- Dans un même réseau Docker, nous disposons d'un conteneur `nginx` (utilisant l'image `nginx:latest`) et d'un conteneur `web` (utilisant une image contenant un projet web Django, ayant la commande `python manage.py runserver 0.0.0.0:8000` de lancée au démarrage du conteneur). Comment adresser le conteneur `web` depuis le conteneur `nginx` ?
+    - La réponse au quatrième point de la question précédente propose une méthode.
+- Dans un même réseau Docker, nous disposons d'un conteneur `nginx` (utilisant l'image `nginx:latest`) et d'un conteneur `web` (utilisant une image contenant un projet web Django, ayant la commande `python manage.py runserver 0.0.0.0:8000` de lancée au démarrage du conteneur). Comment adresser le serveur web tournant dans le conteneur `web` depuis le conteneur `nginx`, sans utiliser les adresses IP des conteneurs ?
+    - Docker offre un serveur DNS, qui ajoute des entrées DNS par défaut qui sont le nom des conteneurs. Ce serveur DNS est accessible par tous les conteneurs. Ainsi, on peut adresser le serveur web du conteneur `web` directement via `web:8000` depuis le conteneur `nginx`.
 
 ## Notation du CC (NON FIXE, 20 pts)
 
