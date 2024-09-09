@@ -113,27 +113,27 @@ L'exécution est ainsi complétée.
     - `EXPOSE port` permet de documenter les ports sur lesquels le conteneur souhaite communiquer avec l’extérieur.
     - `CMD ["commande","à","exécuter"]` permet d'exécuter une commande au sein du conteneur à la fin de la phase de construction, au moment du démarrage du conteneur.
 - Dans la définition d'un service dans le fichier `docker-compose.yml`, expliquez l'effet des mentions :
-    1.
+    - 1.
     ```
     ports:
         - "80:80"
     ```
     - Cela établit une correspondace entre le port 80 du conteneur et le port 80 de l’hôte via une règle NAT, ce qui rend le service accessible depuis l'extérieur du conteneur.
-    2.
+    - 2.
     ```
     build: 
         context: .
         dockerfile: Dockerfile.api
     ```
     - Ceci permet de spécifier le `Dockerfile` à utiliser pour la création du conteneur.
-    3.
+    - 3.
     ```
     depends_on:
         - web
         - api
     ```
     - Cela signifie que le service ne démarrera qu'après que les conteneurs `web` et `api` ont démarré. Cependant, cela ne garantit pas que ces services seront entièrement prêts. Il est recommandé d'utiliser des "healthchecks" pour s'en assurer.
-    4.
+    - 4.
     ```
     environment:
         POSTGRES_DB: ${POSTGRES_DB}
