@@ -144,7 +144,7 @@ L'exécution est ainsi complétée.
 - Dans un même réseau Docker, nous disposons d'un conteneur `nginx` (utilisant l'image `nginx:latest`) et d'un conteneur `web` (utilisant une image contenant un projet web Django, ayant la commande `python manage.py runserver 0.0.0.0:8000` de lancée au démarrage du conteneur). Comment adresser le serveur web tournant dans le conteneur `web` depuis le conteneur `nginx`, sans utiliser les adresses IP des conteneurs ?
     - Docker offre un serveur DNS, qui ajoute des entrées DNS par défaut qui sont le nom des conteneurs. Ce serveur DNS est accessible par tous les conteneurs. Ainsi, on peut adresser le serveur web du conteneur `web` directement via `web:8000` depuis le conteneur `nginx`.
 
-## Notation du CC (NON FIXE, 20 pts)
+## Notation du CC (20 pts)
 
 ### Application web Django **(6 pts+)**
 
