@@ -153,7 +153,7 @@ L'exécution est ainsi complétée.
 - Une page par table pour afficher l'ensemble des données (toutes les entrées, toutes les colonnes, toutes les tables) **(2 pts)**
 - Une page d'accueil pour naviguer sur les différentes listes **(1 pt)**
 - La page d'administration est disponible à l'URL `/admin` **(1 pt)**
-- Fonctionnalités supplémentaires (création d'objets, utilisateurs/connexion, pages pour avoir les détails d'un objet dans la liste) **(+1 pt/fonctionnalité)**
+- Fonctionnalités supplémentaires (création d'objets, utilisateurs/connexion, pages pour avoir les détails d'un objet dans la liste, REST framework) **(+1 pt/fonctionnalité)**
 
 #### API (app `api`) **(2 pts+)**
 
